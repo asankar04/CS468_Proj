@@ -16,7 +16,7 @@ export class AuthService {
     return bcrypt.compare(password, hashedPassword);
   }
 
-  // Generate JWT token after successful login
+  // Generate JWT token
   static generateToken(user: User): string {
     return jwt.sign(
       { 
@@ -28,7 +28,7 @@ export class AuthService {
     );
   }
 
-  // Verify JWT token for protected routes
+  // Verify JWT token
   static verifyToken(token: string): { userId: number; email: string } | null {
     try {
       const decoded = jwt.verify(token, JWT_SECRET) as any;
@@ -43,6 +43,6 @@ export class AuthService {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return null;
     }
-    return authHeader.substring(7); // Remove "Bearer " prefix
+    return authHeader.substring(7);
   }
 }
